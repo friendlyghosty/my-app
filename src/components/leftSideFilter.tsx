@@ -18,7 +18,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
     let valid = true;
     let newErrors = { fromDate: "", toDate: "" };
 
-    const today = new Date().toISOString().split("T")[0]; // Current Date (YYYY-MM-DD)
+    const today = new Date().toISOString().split("T")[0];
 
     if (!filters.fromDate) {
       newErrors.fromDate = "From Date is required";
@@ -41,7 +41,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
     return valid;
   };
 
-  // Handle Date Change
+  
   const handleDateChange = (type: "fromDate" | "toDate", value: string) => {
     setFilters((prevFilters) => ({ ...prevFilters, [type]: value }));
 
@@ -52,7 +52,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
     }));
   };
 
-  // Handle Checkbox Selection
+  // Here is checbox handle function
   const handleCheckboxChange = (type: "categories" | "sources", value: string) => {
     setFilters((prevFilters) => {
       const updatedList = prevFilters[type].includes(value)
@@ -63,7 +63,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
     });
   };
 
-  // Handle Submit Button Click
+  // Submit button functionality when submit button is clicked 
   const handleSubmit = () => {
     if (validateDates()) {
       setSubmitButton(true);
@@ -72,7 +72,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
   };
 
   return (
-    <div className="w-1/4 h-[calc(100vh-140px)] p-4 bg-white border-2 border-blue-500 rounded-lg shadow-md fixed left-0 ml-2 z-50">
+    <div className="w-1/4 h-[calc(100vh-140px)] p-4 bg-white border-2 border-black rounded-lg shadow-md fixed left-0 ml-2 z-50">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
       {/* From Date Filter */}
@@ -99,7 +99,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
         {errors.toDate && <p className="text-red-500 text-sm">{errors.toDate}</p>}
       </div>
 
-      {/* Category Filter (Multiple Selection) */}
+     
       <div className="mb-4">
         <label className="block font-semibold mb-1">Category:</label>
         {["technology", "business", "sports", "health"].map((category) => (
@@ -115,7 +115,7 @@ function LeftSideFilter({ onFilterChange, setSubmitButton }: any) {
         ))}
       </div>
 
-      {/* Submit Button */}
+   
       <button 
         onClick={handleSubmit}
         className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600 transition duration-300"

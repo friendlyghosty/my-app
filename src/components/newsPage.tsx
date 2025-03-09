@@ -7,8 +7,6 @@ function NewsPage(props: any) {
   const [searchText, setSearchText] = useState<string>("");
   const [noResult,setNoResult] = useState<boolean>(false)
 
-  console.log("filters",filters)
-  // Fetch the data
   useEffect(() => {
    
       fetchNews();
@@ -32,7 +30,7 @@ function NewsPage(props: any) {
             ? `q=${searchQuery} AND ${filters.categories.join(" AND ")}`
             : `q=${filters.categories.join(" AND ")}`;
     }
-console.log("filtersss", filters)
+
     const dateQuery = filters.fromDate && filters.toDate ? `&from=${filters?.fromDate}&to=${filters?.toDate}` : "";
 
     // const API_KEY = "6b4a07cc0abe4a318cf9a1741928ceb4";
@@ -59,7 +57,7 @@ console.log("filtersss", filters)
       <div className="font-bold grid place-items-center text-black h-[calc(100vw-1000px)]"> No News Found!</div>
       :
       <>
-      <div className="mb-4 w-[400px]">
+      <div className="mb-4 w-full max-w-md mx-auto">
   <input
     type="text"
     placeholder="Search news..."
@@ -67,22 +65,22 @@ console.log("filtersss", filters)
     onChange={(e) => {
       setSearchText(e.target.value);
       if (e.target.value === "") {
-        fetchNews(""); // Call API immediately when input is cleared
+        fetchNews(""); // When the search is empty , I will be passing empty string
       }
     }}
     onKeyDown={(e) => {
       if (e.key === "Enter") {
-        fetchNews(); // Call API with searchText when Enter is pressed
+        fetchNews(); 
       }
     }}
-    className="border p-2 w-full rounded-md shadow-sm"
+    className="border border-black p-2 w-full rounded-md shadow-sm"
   />
 </div>
 
       {newsData.map((result: any, index: number) => (
-        <div key={index} className="border-2 border-black rounded-lg p-4">
+        <div key={index} className="border-2 border-black  rounded-lg p-4 mt-4">
           <div className="font-bold text-2xl">{result.title}</div>
-          <img src={result.urlToImage} alt="News" className="w-full h-[400px] mt-2" />
+          <img src={result.urlToImage} alt="News" className="w-full h-auto mt-2" />
           <div> Author: {result.author}</div>
           <div> Published: {new Date(result.publishedAt).toLocaleString()}</div>
           <div>{result.description}</div>
